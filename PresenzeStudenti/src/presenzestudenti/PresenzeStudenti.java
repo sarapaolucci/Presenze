@@ -4,7 +4,9 @@
  */
 package presenzestudenti;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.ParseException;
 
 /**
  *
@@ -15,10 +17,11 @@ public class PresenzeStudenti {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, FileNotFoundException, ParseException {
         GestioneFile g = new GestioneFile("0_PresenzeStudenti.csv");
         g.leggiFile();
         g.stampaStudentiSemprePresenti();
+        g.presenzeDaA();
     }
     
 }

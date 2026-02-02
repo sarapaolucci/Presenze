@@ -8,7 +8,10 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -29,14 +32,17 @@ public class GestioneFile {
         }
     }
     
-    public void leggiFile() throws FileNotFoundException, IOException{
+    public void leggiFile() throws FileNotFoundException, IOException, ParseException{
         try(BufferedReader reader = new BufferedReader(new FileReader(csvFile))){
             String line;
             reader.readLine();
             while((line = reader.readLine()) != null){
                 String[] colonne = line.split(",");
-                Studente s = new Studente(colonne[2],Integer.parseInt(colonne[1]),colonne[0],colonne[3]);
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                Date data = sdf.parse(colonne[0]);
+                Studente s = new Studente(colonne[2],Integer.parseInt(colonne[1]),data,colonne[3]);
                 presenze.add(s);
+                
             }
         }
     }
@@ -63,9 +69,21 @@ public class GestioneFile {
                 semprePres.add(presenze.get(i).getNome());
             }
         }
+        System.out.println("Gli studenti sempre presenti sono:");
         for(int i = 0; i < semprePres.size(); i++){
             System.out.println(semprePres.get(i));
         }
     }
-     
+    
+    public void presenzeDaA() throws FileNotFoundException, IOException, ParseException{
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date inizio = sdf.parse("2026-01-14");
+        Date fine   = sdf.parse("2026-01-16");
+        System.out.println("I presenti dal 2026-01-14 al 2026-01-16 sono:");
+        for(int i = 0; i < presenze.size();i++){
+            if(presenze.get(i).getStato() == Stato.PRESENTE && !presenze.get(i).getData().before(inizio) && !presenze.get(i).getData().after(fine)){
+                System.out.println(presenze.get(i).getNome());
+            }
+        }
+    }
 }

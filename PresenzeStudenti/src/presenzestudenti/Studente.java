@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package presenzestudenti;
-
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -13,10 +13,10 @@ import java.util.Date;
 public class Studente {
     private String nome;
     private int matricola;
-    private String data;
+    private Date data;
     private Stato stato;
     
-    public Studente(String n, int m, String d, String s){
+    public Studente(String n, int m, Date d, String s){
         this.nome = n;
         this.matricola = m;
         this.data = d;
@@ -39,7 +39,12 @@ public class Studente {
         return this.stato;
     }
     
-    public String getData(){
+    public String getDataString(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return sdf.format(data);
+    }
+    
+    public Date getData(){
         return this.data;
     }
     
@@ -55,11 +60,11 @@ public class Studente {
         this.stato = s;
     }
     
-    public void setData(String d){
+    public void setData(Date d){
         this.data =d;
     }
     
     public String ToString(){
-        return "Nome: " + nome + " Matricola: " + matricola + " Data: " + data + " Stato: " + stato;
+        return "Nome: " + nome + " Matricola: " + matricola + " Data: " + getDataString() + " Stato: " + stato;
     }
 }
