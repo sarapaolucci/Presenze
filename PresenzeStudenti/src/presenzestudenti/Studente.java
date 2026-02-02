@@ -13,14 +13,18 @@ import java.util.Date;
 public class Studente {
     private String nome;
     private int matricola;
-    private Date data;
+    private String data;
     private Stato stato;
     
-    public Studente(String n, int m, Date d, Stato s){
+    public Studente(String n, int m, String d, String s){
         this.nome = n;
         this.matricola = m;
         this.data = d;
-        this.stato = s;
+        this.stato = Stato.valueOf(s.toUpperCase());
+    }
+    
+    public Studente(){
+        
     }
     
     public String getNome(){
@@ -35,7 +39,27 @@ public class Studente {
         return this.stato;
     }
     
-    public Date getData(){
+    public String getData(){
         return this.data;
+    }
+    
+    public void setNome(String n){
+        this.nome = n;
+    }
+    
+    public void setMatricola(int m){
+        this.matricola = m;
+    }
+    
+    public void setStato(Stato s){
+        this.stato = s;
+    }
+    
+    public void setData(String d){
+        this.data =d;
+    }
+    
+    public String ToString(){
+        return "Nome: " + nome + " Matricola: " + matricola + " Data: " + data + " Stato: " + stato;
     }
 }

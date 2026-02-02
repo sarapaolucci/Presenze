@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class GestioneFile {
     private String csvFile;
-    private ArrayList<Studente> presenze;
+    private ArrayList <Studente> presenze;
     
     public GestioneFile(String csv){
         this.csvFile = csv;
@@ -33,6 +33,39 @@ public class GestioneFile {
         try(BufferedReader reader = new BufferedReader(new FileReader(csvFile))){
             String line;
             reader.readLine();
+            while((line = reader.readLine()) != null){
+                String[] colonne = line.split(",");
+                Studente s = new Studente(colonne[2],Integer.parseInt(colonne[1]),colonne[0],colonne[3]);
+                presenze.add(s);
+            }
         }
     }
+    
+    public int calcolaAssenze(Studente s){
+        int count = 0;
+        for(int i = 0; i < presenze.size();i++){
+            if(presenze.get(i).getStato()== Stato.ASSENTE){
+                count++;
+            }
+        }
+        return count;
+    }
+    
+    public void stampaStudentiSemprePresenti(){
+        ArrayList<String> semprePres = new ArrayList();
+        ArrayList<String> sempreAss = new ArrayList();
+        for(int i = 0; i < presenze.size();i++){
+            if(presenze.get(i).getStato()== Stato.ASSENTE){
+               sempreAss.add(presenze.get(i).getNome());
+               semprePres.remove(presenze.get(i).getNome());
+            }
+            else if(presenze.get(i).getStato()== Stato.PRESENTE && sempreAss.contains(presenze.get(i).getNome()) == false){
+                semprePres.add(presenze.get(i).getNome());
+            }
+        }
+        for(int i = 0; i < semprePres.size(); i++){
+            System.out.println(semprePres.get(i));
+        }
+    }
+     
 }

@@ -4,6 +4,8 @@
  */
 package presenzestudenti;
 
+import java.io.IOException;
+
 /**
  *
  * @author paolucci.sara
@@ -13,8 +15,10 @@ public class PresenzeStudenti {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    public static void main(String[] args) throws IOException {
+        GestioneFile g = new GestioneFile("0_PresenzeStudenti.csv");
+        g.leggiFile();
+        g.stampaStudentiSemprePresenti();
     }
     
 }
