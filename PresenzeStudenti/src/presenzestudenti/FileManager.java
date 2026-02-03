@@ -17,16 +17,16 @@ import java.util.Date;
  *
  * @author paolucci.sara
  */
-public class GestioneFile {
+public class FileManager {
     private String csvFile;
-    private ArrayList <Studente> presenze;
+    private ArrayList <PresenzaGiornaliera> presenze;
     
-    public GestioneFile(String csv){
+    public FileManager(String csv){
         this.csvFile = csv;
         this.presenze = new ArrayList();
     }
     
-    public void addStudente(Studente s){
+    public void addStudente(PresenzaGiornaliera s){
         if(s != null){
             presenze.add(s);
         }
@@ -40,14 +40,14 @@ public class GestioneFile {
                 String[] colonne = line.split(",");
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 Date data = sdf.parse(colonne[0]);
-                Studente s = new Studente(colonne[2],Integer.parseInt(colonne[1]),data,colonne[3]);
+                PresenzaGiornaliera s = new PresenzaGiornaliera(colonne[2],Integer.parseInt(colonne[1]),data,colonne[3]);
                 presenze.add(s);
                 
             }
         }
     }
     
-    public int calcolaAssenze(Studente s){
+    public int calcolaAssenze(){
         int count = 0;
         for(int i = 0; i < presenze.size();i++){
             if(presenze.get(i).getStato()== Stato.ASSENTE){

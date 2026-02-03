@@ -18,7 +18,7 @@ public class PresenzeStudenti {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException, FileNotFoundException, ParseException {
-        GestioneFile g = new GestioneFile("0_PresenzeStudenti.csv");
+        FileManager g = new FileManager("0_PresenzeStudenti.csv");
         g.leggiFile();
         g.stampaStudentiSemprePresenti();
         g.presenzeDaA();

@@ -10,20 +10,20 @@ import java.util.Date;
  *
  * @author paolucci.sara
  */
-public class Studente {
+public class PresenzaGiornaliera {
     private String nome;
     private int matricola;
     private Date data;
     private Stato stato;
     
-    public Studente(String n, int m, Date d, String s){
+    public PresenzaGiornaliera(String n, int m, Date d, String s){
         this.nome = n;
         this.matricola = m;
         this.data = d;
         this.stato = Stato.valueOf(s.toUpperCase());
     }
     
-    public Studente(){
+    public PresenzaGiornaliera(){
         
     }
     
