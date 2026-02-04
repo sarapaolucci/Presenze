@@ -4,9 +4,7 @@
  */
 package presenzestudenti;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -71,10 +69,22 @@ public class Gestore {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date inizio = sdf.parse("2026-01-14");
         Date fine   = sdf.parse("2026-01-16");
-        System.out.println("I presenti dal 2026-01-14 al 2026-01-16 sono:");
+        ArrayList<String>conta = new ArrayList();
+        int count = 0;
+        System.out.println("Presenze dal 2026-01-14 al 2026-01-16 sono:");
         for(int i = 0; i < presenze.size();i++){
-            if(presenze.get(i).getStato() == Stato.PRESENTE && !presenze.get(i).getData().before(inizio) && !presenze.get(i).getData().after(fine)){
-                System.out.println(presenze.get(i).getNome());
+            if(!presenze.get(i).getData().before(inizio) && !presenze.get(i).getData().after(fine)){
+                String nome = presenze.get(i).getNome();
+                for(int j = 0; j < presenze.size();j++){
+                   if(presenze.get(j).getNome().equals(nome)== true && presenze.get(j).getStato() == Stato.PRESENTE){
+                   count++;
+                   }   
+                }
+                if(!conta.contains(nome)){
+                   System.out.println("Lo studente "+ nome + " ha fatto "+ count + " presenze");
+                }
+                conta.add(nome);
+                count = 0;
             }
         }
     }
