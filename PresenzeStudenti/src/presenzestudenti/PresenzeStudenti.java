@@ -17,11 +17,12 @@ public class PresenzeStudenti {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws IOException, FileNotFoundException, ParseException {
-        FileManager g = new FileManager("0_PresenzeStudenti.csv");
-        g.leggiFile();
-        g.stampaStudentiSemprePresenti();
-        g.presenzeDaA();
+    public static void main(String[] args) throws IOException, ParseException{
+        Gestore gestore = new Gestore("0_PresenzeStudenti.csv");
+        gestore.leggiFile();
+        gestore.calcolaAssenze();
+        gestore.stampaStudentiSemprePresenti();
+        gestore.presenzeDaA();
     }
     
 }

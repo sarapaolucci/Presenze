@@ -19,20 +19,13 @@ import java.util.Date;
  */
 public class FileManager {
     private String csvFile;
-    private ArrayList <PresenzaGiornaliera> presenze;
+    
     
     public FileManager(String csv){
         this.csvFile = csv;
-        this.presenze = new ArrayList();
     }
     
-    public void addStudente(PresenzaGiornaliera s){
-        if(s != null){
-            presenze.add(s);
-        }
-    }
-    
-    public void leggiFile() throws FileNotFoundException, IOException, ParseException{
+    public void leggiFile(ArrayList<PresenzaGiornaliera> presenze) throws FileNotFoundException, IOException, ParseException{
         try(BufferedReader reader = new BufferedReader(new FileReader(csvFile))){
             String line;
             reader.readLine();
@@ -47,43 +40,5 @@ public class FileManager {
         }
     }
     
-    public int calcolaAssenze(){
-        int count = 0;
-        for(int i = 0; i < presenze.size();i++){
-            if(presenze.get(i).getStato()== Stato.ASSENTE){
-                count++;
-            }
-        }
-        return count;
-    }
     
-    public void stampaStudentiSemprePresenti(){
-        ArrayList<String> semprePres = new ArrayList();
-        ArrayList<String> sempreAss = new ArrayList();
-        for(int i = 0; i < presenze.size();i++){
-            if(presenze.get(i).getStato()== Stato.ASSENTE){
-               sempreAss.add(presenze.get(i).getNome());
-               semprePres.remove(presenze.get(i).getNome());
-            }
-            else if(presenze.get(i).getStato()== Stato.PRESENTE && sempreAss.contains(presenze.get(i).getNome()) == false){
-                semprePres.add(presenze.get(i).getNome());
-            }
-        }
-        System.out.println("Gli studenti sempre presenti sono:");
-        for(int i = 0; i < semprePres.size(); i++){
-            System.out.println(semprePres.get(i));
-        }
-    }
-    
-    public void presenzeDaA() throws FileNotFoundException, IOException, ParseException{
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date inizio = sdf.parse("2026-01-14");
-        Date fine   = sdf.parse("2026-01-16");
-        System.out.println("I presenti dal 2026-01-14 al 2026-01-16 sono:");
-        for(int i = 0; i < presenze.size();i++){
-            if(presenze.get(i).getStato() == Stato.PRESENTE && !presenze.get(i).getData().before(inizio) && !presenze.get(i).getData().after(fine)){
-                System.out.println(presenze.get(i).getNome());
-            }
-        }
-    }
 }
